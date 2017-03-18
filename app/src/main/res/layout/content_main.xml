@@ -51,45 +51,9 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="450dp"
         android:layout_alignParentStart="true"
         android:id="@+id/trash_list" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/Button1"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:text="1번업"
-            android:gravity="center"
-            android:textSize="10dp"/>
-        <Button
-            android:id="@+id/Button2"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:text="2번업"
-            android:gravity="center"
-            android:textSize="10dp"
-            android:layout_marginLeft="20dp"/>
-        <Button
-            android:id="@+id/Button3"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:text="3번업"
-            android:gravity="center"
-            android:textSize="10dp"
-            android:layout_marginLeft="20dp"/>
-        <Button
-            android:id="@+id/Button4"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:text="4번업"
-            android:gravity="center"
-            android:textSize="10dp"
-            android:layout_marginLeft="20dp"/>
-    </LinearLayout>
 </LinearLayout>
 
