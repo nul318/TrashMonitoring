@@ -12,7 +12,6 @@ public class TrashCan {
     double locationX;
     double locationY;
 
-
     TrashCan(int idx, String address, String location, int percent, String color, Drawable draw, double X, double Y) {
         this.idx=idx;
         this.address = address;
