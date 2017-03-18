@@ -3,6 +3,7 @@ package inhain.trashmonitoring;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,7 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -25,17 +25,19 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity
-    implements NavigationView.OnNavigationItemSelectedListener {
-
+        implements NavigationView.OnNavigationItemSelectedListener {
+    static myAdapter Adapter;
+    static ArrayList<TrashCan> list_component = new ArrayList<>();
     public static String SERVER_IP = "52.79.189.195";
     public static int SERVER_PORT = 19999;
     Socket socket;
     DataInputStream input;
     DataOutputStream output;
     public String trash_can_num = "";
+
+    Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +46,8 @@ public class MainActivity extends AppCompatActivity
 
 //        ListView listView=(ListView)findViewById(R.id.listview);
 //        final ListViewAdapter adapter=new ListViewAdapter(this,R.layout.activity_item,item);
-        ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress);
-        Button button1 = (Button) findViewById(R.id.Button1);
-        Button button2 = (Button) findViewById(R.id.Button2);
-        Button button3 = (Button) findViewById(R.id.Button3);
-        Button button4 = (Button) findViewById(R.id.Button4);
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress);
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,18 +65,6 @@ public class MainActivity extends AppCompatActivity
 //        listView.setAdapter(adapter);
 
 
-
-
-        
-
-
-
-
-
-
-        final ArrayList<TrashCan> list_component = new ArrayList<>();
-
-
 //        list_component.add(new TrashCan(2,"럭키빌 고시원","10m 이내",50,"#FFFFFF"));
 //        list_component.add(new TrashCan(3,"휴 레지던스","50m 이내",60,"#FFFFFF"));
 //        list_component.add(new TrashCan(4,"실버 사거리","10m 이내",70,"#FFFFFF"));
@@ -88,16 +75,30 @@ public class MainActivity extends AppCompatActivity
 //        list_component.add(new TrashCan("a","b",0,"#8ccdeb"));
 //        list_component.add(new TrashCan("a","b",0,"#95dabd"));
 //        list_component.add(new TrashCan("a","b",0,"#f5ae98"));
+<<<<<<< HEAD
         list_component.add(new TrashCan(0,"서울 고시텔","20m 이내",50,"#FF313131",getResources().getDrawable(R.drawable.myprogressbar)));
         list_component.add(new TrashCan(1,"관악 실버케어","100m 이내",60,"#FF507B8E",getResources().getDrawable(R.drawable.myprogressbar2)));
         list_component.add(new TrashCan(2,"럭키빌 고시원","10m 이내",70,"#FF5A8674",getResources().getDrawable(R.drawable.myprogressbar3)));
         list_component.add(new TrashCan(3,"휴 레지던스","50m 이내",90,"#FF93675A",getResources().getDrawable(R.drawable.myprogressbar4)));
+=======
+        list_component.add(new TrashCan(0, "서울 고시텔", "20m 이내", 50, "#FF313131", getResources().getDrawable(R.drawable.myprogressbar), 0, 0));
+        list_component.add(new TrashCan(1, "관악 실버케어", "100m 이내", 60, "#FF507B8E", getResources().getDrawable(R.drawable.myprogressbar2), 0, 0));
+        list_component.add(new TrashCan(2, "럭키빌 고시원", "10m 이내", 70, "#FF5A8674", getResources().getDrawable(R.drawable.myprogressbar3), 0, 0));
+        list_component.add(new TrashCan(3, "휴 레지던스", "50m 이내", 90, "#FF93675A", getResources().getDrawable(R.drawable.myprogressbar4), 0, 0));
+
+
+        list_component.add(new TrashCan(5, "중동 미리내마을", "50m 이내", 20, "#FF507B8E", getResources().getDrawable(R.drawable.myprogressbar2), 0, 0));
+
+        list_component.add(new TrashCan(4, "신 연수역", "20m 이내", 10, "#FF313131", getResources().getDrawable(R.drawable.myprogressbar), 0, 0));
+        list_component.add(new TrashCan(6, "안양 삼성레미안", "10m 이내", 30, "#FF5A8674", getResources().getDrawable(R.drawable.myprogressbar3), 0, 0));
+        list_component.add(new TrashCan(7, "소정 주택", "30m 이내", 40, "#FF93675A", getResources().getDrawable(R.drawable.myprogressbar4), 0, 0));
+>>>>>>> 9277e8ab5fd9f362ce72b748d63f42474e3e31b0
 //        list_component.add(new TrashCan(4,"실버 사거리","10m 이내",52,"#FFFFFF","#000000"));
 //        list_component.add(new TrashCan(5,"인하대 후문","30m 이내",52,"#FFFFFF","#000000"));
 //        list_component.add(new TrashCan(6,"부천대 앞","40m 이내",52,"#FFFFFF","#000000"));
 
 
-        final myAdapter Adapter = new myAdapter(getApplicationContext(), R.layout.item, list_component);
+        Adapter = new myAdapter(getApplicationContext(), R.layout.item, list_component);
         ListView list = (ListView) findViewById(R.id.trash_list);
 
 
@@ -110,33 +111,6 @@ public class MainActivity extends AppCompatActivity
             }
         }
         ).start();
-
-
-        button1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                list_component.get(0).percent=list_component.get(0).percent+1;
-                Adapter.notifyDataSetChanged();
-            }
-        });
-        button2.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                list_component.get(1).percent=list_component.get(1).percent+1;
-                Adapter.notifyDataSetChanged();
-            }
-        });
-        button3.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                list_component.get(2).percent=list_component.get(2).percent+1;
-                Adapter.notifyDataSetChanged();
-            }
-        });
-        button4.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                list_component.get(3).percent=list_component.get(3).percent+1;
-                Adapter.notifyDataSetChanged();
-            }
-        });
-
 
 
     }
@@ -200,10 +174,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
-
-
-
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -250,6 +220,17 @@ public class MainActivity extends AppCompatActivity
                         case 'c':
                             trash_can_num = buffer[1];
                             System.out.println(trash_can_num + "번 쓰레기통에 투입");
+                            for(int i=0; i<10; i++) {
+                                list_component.get(Integer.valueOf(trash_can_num)).percent = list_component.get(Integer.valueOf(trash_can_num)).percent + 1;
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Adapter.notifyDataSetChanged();
+                                    }
+                                });
+                                Thread.sleep(100);
+                            }
+
                             break;
                         case 'x':
 //                            chatMessage = buffer[1]; //퇴장
@@ -260,12 +241,11 @@ public class MainActivity extends AppCompatActivity
             } catch (IOException e) {
 
                 e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
-
-
-
 
 
     public class myAdapter extends BaseAdapter {
@@ -273,6 +253,7 @@ public class MainActivity extends AppCompatActivity
         LayoutInflater inflater;
         ArrayList<TrashCan> components_list;
         int layout;
+
         myAdapter(Context context, int layout, ArrayList<TrashCan> components_list) {
             con = context;
             this.layout = layout;
@@ -299,6 +280,7 @@ public class MainActivity extends AppCompatActivity
             // TODO Auto-generated method stub
             return position;
         }
+
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             // TODO Auto-generated method stub
@@ -333,7 +315,7 @@ public class MainActivity extends AppCompatActivity
 
             location.setTextColor(Color.parseColor(components_list.get(position).color));
 
-            percent.setText(String.valueOf(components_list.get(position).percent) + "%") ;
+            percent.setText(String.valueOf(components_list.get(position).percent) + "%");
             percent.setTextColor(Color.parseColor(components_list.get(position).color));
 
 
