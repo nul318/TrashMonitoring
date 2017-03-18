@@ -1,9 +1,6 @@
 package inhain.trashmonitoring;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,8 +10,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    public static String SERVER_IP = "52.79.189.195";
+    public static int SERVER_PORT = 19999;
+    Socket socket;
+    DataInputStream input;
+    DataOutputStream output;
+    public String trash_can_num = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,15 +32,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -40,6 +41,40 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        new Thread(new Runnable() {
+            public void run() {
+                connect();
+            }
+        }
+        ).start();
+
+
+
+
+
+
     }
 
     @Override
@@ -98,4 +133,70 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+
+
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        try {
+            socket.close();
+            input.close();
+            output.close();
+        } catch (IOException e) {
+        }
+    }
+
+    public void connect() {
+        try {
+            socket = new Socket(SERVER_IP, SERVER_PORT);
+            input = new DataInputStream(socket.getInputStream());
+            output = new DataOutputStream(socket.getOutputStream());
+            while (socket != null) {
+                if (socket.isConnected()) {
+                    output.writeUTF("p`1`1`스마트폰 연결`");
+                    output.flush();
+                    break;
+                }
+            }
+            MessageReciver messageReceiver = new MessageReciver();
+            messageReceiver.start();
+        } catch (Exception e) {
+            System.out.println("서버에 접속할 수 없습니다.");
+            this.finish();
+        }
+    }
+
+
+    public class MessageReciver extends Thread {
+        public void run() {
+            try {
+                String received;
+                while ((received = input.readUTF()) != null) {
+                    final String[] buffer = received.split("`");
+                    switch (buffer[0].charAt(0)) {
+                        case 'n':
+//                            chatMessage = buffer[1]; //입장
+//                            System.out.println(buffer[1]);
+                            break;
+                        case 'c':
+                            trash_can_num = buffer[1];
+                            System.out.println(trash_can_num + "번 쓰레기통에 투입");
+                            break;
+                        case 'x':
+//                            chatMessage = buffer[1]; //퇴장
+                            break;
+                    }
+
+                }
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
