@@ -18,7 +18,6 @@ public class TrashCan {
         this.location = location;
         this.percent = percent;
         this.color = color;
-
         this.color2 = color2;
         this.draw = draw;
     }
