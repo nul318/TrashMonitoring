@@ -1,6 +1,7 @@
 package inhain.trashmonitoring;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,7 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import org.xmlpull.v1.XmlPullParser;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -24,7 +28,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+    implements NavigationView.OnNavigationItemSelectedListener {
 
     public static String SERVER_IP = "52.79.189.195";
     public static int SERVER_PORT = 19999;
@@ -40,7 +44,7 @@ public class MainActivity extends AppCompatActivity
 
 //        ListView listView=(ListView)findViewById(R.id.listview);
 //        final ListViewAdapter adapter=new ListViewAdapter(this,R.layout.activity_item,item);
-
+        ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -70,13 +74,13 @@ public class MainActivity extends AppCompatActivity
 
 
 
-        list_component.add(new TrashCan(0,"서울 고시텔","20m 이내",52,"#FFFFFF"));
-        list_component.add(new TrashCan(1,"관악 실버케어","100m 이내",52,"#FFFFFF"));
-        list_component.add(new TrashCan(2,"럭키빌 고시원","10m 이내",52,"#FFFFFF"));
-        list_component.add(new TrashCan(3,"휴 레지던스","50m 이내",52,"#FFFFFF"));
-        list_component.add(new TrashCan(4,"실버 사거리","10m 이내",52,"#FFFFFF"));
-        list_component.add(new TrashCan(5,"인하대 후문","30m 이내",52,"#FFFFFF"));
-        list_component.add(new TrashCan(6,"부천대 앞","40m 이내",52,"#FFFFFF"));
+        list_component.add(new TrashCan(0,"서울 고시텔","20m 이내",30,"#FFFFFF",getResources().getDrawable(R.drawable.myprogressbar)));
+        list_component.add(new TrashCan(1,"관악 실버케어","100m 이내",40,"#FFFFFF",getResources().getDrawable(R.drawable.myprogressbar2)));
+//        list_component.add(new TrashCan(2,"럭키빌 고시원","10m 이내",50,"#FFFFFF"));
+//        list_component.add(new TrashCan(3,"휴 레지던스","50m 이내",60,"#FFFFFF"));
+//        list_component.add(new TrashCan(4,"실버 사거리","10m 이내",70,"#FFFFFF"));
+//        list_component.add(new TrashCan(5,"인하대 후문","30m 이내",80,"#FFFFFF"));
+//        list_component.add(new TrashCan(6,"부천대 앞","40m 이내",90,"#FFFFFF"));
 
 
         myAdapter Adapter = new myAdapter(getApplicationContext(), R.layout.item, list_component);
@@ -270,12 +274,13 @@ public class MainActivity extends AppCompatActivity
             TextView address = (TextView) convertView.findViewById(R.id.address);
             TextView location = (TextView) convertView.findViewById(R.id.location);
             TextView percent = (TextView) convertView.findViewById(R.id.percent);
+            ProgressBar progressBar = (ProgressBar) convertView.findViewById(R.id.progress);
 
             address.setText(components_list.get(position).address);
             location.setText(components_list.get(position).location);
             percent.setText(String.valueOf(components_list.get(position).percent) + "%");
-
-
+            progressBar.setProgress(components_list.get(position).percent);
+            progressBar.setProgressDrawable(components_list.get(position).draw);
 
             return convertView;
         }
