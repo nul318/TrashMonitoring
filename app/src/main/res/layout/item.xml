@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <TextView
-        android:text="서울 고시텔"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="22dp"
-        android:id="@+id/address"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:textColor="#ffffff"
-        android:background="#757373"
-       />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="110dip"
+        android:progressDrawable="@drawable/myprogressbar" />
+
 
     <TextView
         android:text="52%"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="right"
         android:id="@+id/percent"
         android:layout_below="@+id/location"
-        android:layout_alignEnd="@+id/detail" />
+        android:layout_alignEnd="@+id/detail"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="70dp"/>
 
     <TextView
         android:text="20m 이내"
@@ -30,14 +29,29 @@
         android:id="@+id/location"
         android:layout_below="@+id/address"
         android:layout_alignStart="@+id/address"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="44dp"/>
 
     <Button
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginEnd="44dp"
         android:id="@+id/detail"
         android:background="@drawable/trashcan"
         android:layout_alignTop="@+id/address"
-        android:layout_alignParentEnd="true" />
-</RelativeLayout>
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="right"/>
+
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="30dp"
+        android:text="서울 고시텔"
+        android:textColor="#ffffff" />
+
+</FrameLayout>

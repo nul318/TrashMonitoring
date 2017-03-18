@@ -1,6 +1,7 @@
 package inhain.trashmonitoring;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -24,7 +27,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
 
     public static String SERVER_IP = "52.79.189.195";
     public static int SERVER_PORT = 19999;
@@ -37,6 +39,10 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        ListView listView=(ListView)findViewById(R.id.listview);
+//        final ListViewAdapter adapter=new ListViewAdapter(this,R.layout.activity_item,item);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -49,16 +55,13 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+//        adapter.notifyDataSetChanged();
+//        listView.setAdapter(adapter);
 
 
 
 
-
-
-
-
-
-
+        
 
 
 
@@ -69,13 +72,17 @@ public class MainActivity extends AppCompatActivity
 
 
 
-        list_component.add(new TrashCan("a","b",0,"#808080"));
-        list_component.add(new TrashCan("a","b",0,"#8ccdeb"));
-        list_component.add(new TrashCan("a","b",0,"#95dabd"));
-        list_component.add(new TrashCan("a","b",0,"#f5ae98"));
-        list_component.add(new TrashCan("a","b",0,"c"));
-        list_component.add(new TrashCan("a","b",0,"c"));
-        list_component.add(new TrashCan("a","b",0,"c"));
+//        list_component.add(new TrashCan("a","b",0,"#808080"));
+//        list_component.add(new TrashCan("a","b",0,"#8ccdeb"));
+//        list_component.add(new TrashCan("a","b",0,"#95dabd"));
+//        list_component.add(new TrashCan("a","b",0,"#f5ae98"));
+        list_component.add(new TrashCan(0,"서울 고시텔","20m 이내",52,"#676767","#000000",getResources().getDrawable(R.drawable.myprogressbar)));
+        list_component.add(new TrashCan(1,"관악 실버케어","100m 이내",52,"#7CB7D3","#000000",getResources().getDrawable(R.drawable.myprogressbar2)));
+        list_component.add(new TrashCan(2,"럭키빌 고시원","10m 이내",52,"#84C2A8","#000000",getResources().getDrawable(R.drawable.myprogressbar3)));
+        list_component.add(new TrashCan(3,"휴 레지던스","50m 이내",52,"#F5BDAB","#000000",getResources().getDrawable(R.drawable.myprogressbar4)));
+//        list_component.add(new TrashCan(4,"실버 사거리","10m 이내",52,"#FFFFFF","#000000"));
+//        list_component.add(new TrashCan(5,"인하대 후문","30m 이내",52,"#FFFFFF","#000000"));
+//        list_component.add(new TrashCan(6,"부천대 앞","40m 이내",52,"#FFFFFF","#000000"));
 
 
         myAdapter Adapter = new myAdapter(getApplicationContext(), R.layout.item, list_component);
@@ -153,6 +160,7 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
 
@@ -225,7 +233,6 @@ public class MainActivity extends AppCompatActivity
 
 
 
-
     public class myAdapter extends BaseAdapter {
         Context con;
         LayoutInflater inflater;
@@ -260,11 +267,40 @@ public class MainActivity extends AppCompatActivity
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             // TODO Auto-generated method stub
-//            if (null == convertView) {
+            if (null == convertView) {
                 convertView = inflater.inflate(layout, parent, false);
-//                //cells 를 뷰화시켜서 아이템목록으로 삽입
-//            }
+            }
+
+//            final Button imgButton = (Button) findViewById(detail);
+//            View.OnClickListener Buttonhandler = new View.OnClickListener() {
+//
+//                public void onClick(View v) {
+//                    if(v = R.id.detail)
+//                    imgButton.setBackgroundResource(R.drawable.detail);
+//
+//                }
+//            };
+//            imgButton.setOnClickListener(Buttonhandler);
+
+            ProgressBar progressBar = (ProgressBar) convertView.findViewById(R.id.progress);
+            TextView address = (TextView) convertView.findViewById(R.id.address);
+            TextView location = (TextView) convertView.findViewById(R.id.location);
+            TextView percent = (TextView) convertView.findViewById(R.id.percent);
+
+
+            address.setText(components_list.get(position).address);
+
+            location.setText(components_list.get(position).location);
+            location.setTextColor(Color.parseColor(components_list.get(position).color));
+
+            percent.setText(String.valueOf(components_list.get(position).percent) + "%") ;
+            percent.setTextColor(Color.parseColor(components_list.get(position).color));
+
+            progressBar.setProgressDrawable(components_list.get(position).draw);
+
+
             return convertView;
         }
+
     }
 }
