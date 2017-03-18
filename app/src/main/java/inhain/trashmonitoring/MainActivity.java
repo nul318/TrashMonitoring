@@ -2,6 +2,7 @@ package inhain.trashmonitoring;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -74,22 +75,30 @@ public class MainActivity extends AppCompatActivity
 
 
 
-        list_component.add(new TrashCan(0,"서울 고시텔","20m 이내",30,"#FFFFFF",getResources().getDrawable(R.drawable.myprogressbar)));
-        list_component.add(new TrashCan(1,"관악 실버케어","100m 이내",40,"#FFFFFF",getResources().getDrawable(R.drawable.myprogressbar2)));
 //        list_component.add(new TrashCan(2,"럭키빌 고시원","10m 이내",50,"#FFFFFF"));
 //        list_component.add(new TrashCan(3,"휴 레지던스","50m 이내",60,"#FFFFFF"));
 //        list_component.add(new TrashCan(4,"실버 사거리","10m 이내",70,"#FFFFFF"));
 //        list_component.add(new TrashCan(5,"인하대 후문","30m 이내",80,"#FFFFFF"));
 //        list_component.add(new TrashCan(6,"부천대 앞","40m 이내",90,"#FFFFFF"));
 
+//        list_component.add(new TrashCan("a","b",0,"#808080"));
+//        list_component.add(new TrashCan("a","b",0,"#8ccdeb"));
+//        list_component.add(new TrashCan("a","b",0,"#95dabd"));
+//        list_component.add(new TrashCan("a","b",0,"#f5ae98"));
+        list_component.add(new TrashCan(0,"서울 고시텔","20m 이내",50,"#676767","#000000",getResources().getDrawable(R.drawable.myprogressbar)));
+        list_component.add(new TrashCan(1,"관악 실버케어","100m 이내",60,"#7CB7D3","#000000",getResources().getDrawable(R.drawable.myprogressbar2)));
+        list_component.add(new TrashCan(2,"럭키빌 고시원","10m 이내",70,"#84C2A8","#000000",getResources().getDrawable(R.drawable.myprogressbar3)));
+        list_component.add(new TrashCan(3,"휴 레지던스","50m 이내",90,"#F5BDAB","#000000",getResources().getDrawable(R.drawable.myprogressbar4)));
+//        list_component.add(new TrashCan(4,"실버 사거리","10m 이내",52,"#FFFFFF","#000000"));
+//        list_component.add(new TrashCan(5,"인하대 후문","30m 이내",52,"#FFFFFF","#000000"));
+//        list_component.add(new TrashCan(6,"부천대 앞","40m 이내",52,"#FFFFFF","#000000"));
+
 
         myAdapter Adapter = new myAdapter(getApplicationContext(), R.layout.item, list_component);
         ListView list = (ListView) findViewById(R.id.trash_list);
 
+
         list.setAdapter(Adapter);
-
-
-
 
 
         new Thread(new Runnable() {
@@ -233,7 +242,6 @@ public class MainActivity extends AppCompatActivity
 
 
 
-
     public class myAdapter extends BaseAdapter {
         Context con;
         LayoutInflater inflater;
@@ -245,6 +253,7 @@ public class MainActivity extends AppCompatActivity
             this.components_list = components_list;
             inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
             // 멤버변수 초기화
+
         }
 
         @Override
@@ -271,18 +280,41 @@ public class MainActivity extends AppCompatActivity
                 convertView = inflater.inflate(layout, parent, false);
             }
 
+//            final Button imgButton = (Button) findViewById(detail);
+//            View.OnClickListener Buttonhandler = new View.OnClickListener() {
+//
+//                public void onClick(View v) {
+//                    if(v = R.id.detail)
+//                    imgButton.setBackgroundResource(R.drawable.detail);
+//
+//                }
+//            };
+//            imgButton.setOnClickListener(Buttonhandler);
+
+            ProgressBar progressBar = (ProgressBar) convertView.findViewById(R.id.progress);
             TextView address = (TextView) convertView.findViewById(R.id.address);
             TextView location = (TextView) convertView.findViewById(R.id.location);
             TextView percent = (TextView) convertView.findViewById(R.id.percent);
-            ProgressBar progressBar = (ProgressBar) convertView.findViewById(R.id.progress);
+
 
             address.setText(components_list.get(position).address);
+
             location.setText(components_list.get(position).location);
-            percent.setText(String.valueOf(components_list.get(position).percent) + "%");
+
+
+
             progressBar.setProgress(components_list.get(position).percent);
             progressBar.setProgressDrawable(components_list.get(position).draw);
 
+
+            location.setTextColor(Color.parseColor(components_list.get(position).color));
+
+            percent.setText(String.valueOf(components_list.get(position).percent) + "%") ;
+            percent.setTextColor(Color.parseColor(components_list.get(position).color));
+
+
             return convertView;
         }
+
     }
 }
