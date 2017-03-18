@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
@@ -43,6 +45,11 @@ public class MainActivity extends AppCompatActivity
 //        ListView listView=(ListView)findViewById(R.id.listview);
 //        final ListViewAdapter adapter=new ListViewAdapter(this,R.layout.activity_item,item);
         ProgressBar progressBar = (ProgressBar)findViewById(R.id.progress);
+        Button button1 = (Button) findViewById(R.id.Button1);
+        Button button2 = (Button) findViewById(R.id.Button2);
+        Button button3 = (Button) findViewById(R.id.Button3);
+        Button button4 = (Button) findViewById(R.id.Button4);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -68,8 +75,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-        ArrayList<TrashCan> list_component = new ArrayList<>();
-
+        final ArrayList<TrashCan> list_component = new ArrayList<>();
 
 
 //        list_component.add(new TrashCan(2,"럭키빌 고시원","10m 이내",50,"#FFFFFF"));
@@ -91,7 +97,7 @@ public class MainActivity extends AppCompatActivity
 //        list_component.add(new TrashCan(6,"부천대 앞","40m 이내",52,"#FFFFFF","#000000"));
 
 
-        myAdapter Adapter = new myAdapter(getApplicationContext(), R.layout.item, list_component);
+        final myAdapter Adapter = new myAdapter(getApplicationContext(), R.layout.item, list_component);
         ListView list = (ListView) findViewById(R.id.trash_list);
 
 
@@ -106,7 +112,30 @@ public class MainActivity extends AppCompatActivity
         ).start();
 
 
-
+        button1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                list_component.get(0).percent=list_component.get(0).percent+1;
+                Adapter.notifyDataSetChanged();
+            }
+        });
+        button2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                list_component.get(1).percent=list_component.get(1).percent+1;
+                Adapter.notifyDataSetChanged();
+            }
+        });
+        button3.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                list_component.get(2).percent=list_component.get(2).percent+1;
+                Adapter.notifyDataSetChanged();
+            }
+        });
+        button4.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                list_component.get(3).percent=list_component.get(3).percent+1;
+                Adapter.notifyDataSetChanged();
+            }
+        });
 
 
 
@@ -299,10 +328,8 @@ public class MainActivity extends AppCompatActivity
             location.setText(components_list.get(position).location);
 
 
-
             progressBar.setProgress(components_list.get(position).percent);
             progressBar.setProgressDrawable(components_list.get(position).draw);
-
 
             location.setTextColor(Color.parseColor(components_list.get(position).color));
 
