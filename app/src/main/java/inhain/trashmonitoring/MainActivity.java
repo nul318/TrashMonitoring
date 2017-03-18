@@ -1,7 +1,6 @@
 package inhain.trashmonitoring;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -20,8 +19,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import org.xmlpull.v1.XmlPullParser;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
