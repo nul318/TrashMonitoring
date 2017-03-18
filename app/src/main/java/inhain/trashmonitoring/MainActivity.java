@@ -85,10 +85,10 @@ public class MainActivity extends AppCompatActivity
 //        list_component.add(new TrashCan("a","b",0,"#8ccdeb"));
 //        list_component.add(new TrashCan("a","b",0,"#95dabd"));
 //        list_component.add(new TrashCan("a","b",0,"#f5ae98"));
-        list_component.add(new TrashCan(0,"서울 고시텔","20m 이내",50,"#676767","#000000",getResources().getDrawable(R.drawable.myprogressbar)));
-        list_component.add(new TrashCan(1,"관악 실버케어","100m 이내",60,"#7CB7D3","#000000",getResources().getDrawable(R.drawable.myprogressbar2)));
-        list_component.add(new TrashCan(2,"럭키빌 고시원","10m 이내",70,"#84C2A8","#000000",getResources().getDrawable(R.drawable.myprogressbar3)));
-        list_component.add(new TrashCan(3,"휴 레지던스","50m 이내",90,"#F5BDAB","#000000",getResources().getDrawable(R.drawable.myprogressbar4)));
+        list_component.add(new TrashCan(0,"서울 고시텔","20m 이내",50,"#FF313131","#000000",getResources().getDrawable(R.drawable.myprogressbar)));
+        list_component.add(new TrashCan(1,"관악 실버케어","100m 이내",60,"#FF507B8E","#000000",getResources().getDrawable(R.drawable.myprogressbar2)));
+        list_component.add(new TrashCan(2,"럭키빌 고시원","10m 이내",70,"#FF5A8674","#000000",getResources().getDrawable(R.drawable.myprogressbar3)));
+        list_component.add(new TrashCan(3,"휴 레지던스","50m 이내",90,"#FF93675A","#000000",getResources().getDrawable(R.drawable.myprogressbar4)));
 //        list_component.add(new TrashCan(4,"실버 사거리","10m 이내",52,"#FFFFFF","#000000"));
 //        list_component.add(new TrashCan(5,"인하대 후문","30m 이내",52,"#FFFFFF","#000000"));
 //        list_component.add(new TrashCan(6,"부천대 앞","40m 이내",52,"#FFFFFF","#000000"));
