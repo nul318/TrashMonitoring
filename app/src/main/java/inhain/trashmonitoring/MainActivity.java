@@ -11,11 +11,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -70,13 +70,13 @@ public class MainActivity extends AppCompatActivity
 
 
 
-        list_component.add(new TrashCan("a","b",0,"c"));
-        list_component.add(new TrashCan("a","b",0,"c"));
-        list_component.add(new TrashCan("a","b",0,"c"));
-        list_component.add(new TrashCan("a","b",0,"c"));
-        list_component.add(new TrashCan("a","b",0,"c"));
-        list_component.add(new TrashCan("a","b",0,"c"));
-        list_component.add(new TrashCan("a","b",0,"c"));
+        list_component.add(new TrashCan(0,"서울 고시텔","20m 이내",52,"#FFFFFF"));
+        list_component.add(new TrashCan(1,"관악 실버케어","100m 이내",52,"#FFFFFF"));
+        list_component.add(new TrashCan(2,"럭키빌 고시원","10m 이내",52,"#FFFFFF"));
+        list_component.add(new TrashCan(3,"휴 레지던스","50m 이내",52,"#FFFFFF"));
+        list_component.add(new TrashCan(4,"실버 사거리","10m 이내",52,"#FFFFFF"));
+        list_component.add(new TrashCan(5,"인하대 후문","30m 이내",52,"#FFFFFF"));
+        list_component.add(new TrashCan(6,"부천대 앞","40m 이내",52,"#FFFFFF"));
 
 
         myAdapter Adapter = new myAdapter(getApplicationContext(), R.layout.item, list_component);
@@ -263,10 +263,20 @@ public class MainActivity extends AppCompatActivity
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             // TODO Auto-generated method stub
-//            if (null == convertView) {
+            if (null == convertView) {
                 convertView = inflater.inflate(layout, parent, false);
-//                //cells 를 뷰화시켜서 아이템목록으로 삽입
-//            }
+            }
+
+            TextView address = (TextView) convertView.findViewById(R.id.address);
+            TextView location = (TextView) convertView.findViewById(R.id.location);
+            TextView percent = (TextView) convertView.findViewById(R.id.percent);
+
+            address.setText(components_list.get(position).address);
+            location.setText(components_list.get(position).location);
+            percent.setText(String.valueOf(components_list.get(position).percent) + "%");
+
+
+
             return convertView;
         }
     }
