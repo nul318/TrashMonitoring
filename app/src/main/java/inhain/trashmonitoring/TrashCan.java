@@ -4,7 +4,7 @@ public class TrashCan {
     String address;
     String location;
     int percent;
-    String color;
+    static String color;
 
     TrashCan(String address, String location, int percent, String color) {
         this.address = address;

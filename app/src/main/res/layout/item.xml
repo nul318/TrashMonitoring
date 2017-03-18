@@ -3,38 +3,41 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <TextView
-        android:text="TextView"
+        android:text="서울 고시텔"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
         android:layout_marginStart="44dp"
         android:layout_marginTop="22dp"
-        android:id="@+id/address" />
+        android:id="@+id/address"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:textColor="#ffffff"
+        android:background="#757373"
+       />
 
     <TextView
-        android:text="TextView"
+        android:text="52%"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/percent"
         android:layout_below="@+id/location"
-        android:layout_alignEnd="@+id/detail"
-        android:id="@+id/percent" />
+        android:layout_alignEnd="@+id/detail" />
 
     <TextView
-        android:text="TextView"
+        android:text="20m 이내"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/location"
-        android:layout_below="@+id/detail"
-        android:layout_alignStart="@+id/address" />
+        android:layout_below="@+id/address"
+        android:layout_alignStart="@+id/address"
+        android:layout_marginTop="10dp" />
 
     <Button
-        android:text="Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="18dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="44dp"
         android:id="@+id/detail"
-        android:layout_alignBaseline="@+id/address"
-        android:layout_alignBottom="@+id/address"
+        android:background="@drawable/trashcan"
+        android:layout_alignTop="@+id/address"
         android:layout_alignParentEnd="true" />
 </RelativeLayout>

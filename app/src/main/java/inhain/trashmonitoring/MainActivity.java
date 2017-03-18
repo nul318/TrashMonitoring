@@ -69,10 +69,10 @@ public class MainActivity extends AppCompatActivity
 
 
 
-        list_component.add(new TrashCan("a","b",0,"c"));
-        list_component.add(new TrashCan("a","b",0,"c"));
-        list_component.add(new TrashCan("a","b",0,"c"));
-        list_component.add(new TrashCan("a","b",0,"c"));
+        list_component.add(new TrashCan("a","b",0,"#808080"));
+        list_component.add(new TrashCan("a","b",0,"#8ccdeb"));
+        list_component.add(new TrashCan("a","b",0,"#95dabd"));
+        list_component.add(new TrashCan("a","b",0,"#f5ae98"));
         list_component.add(new TrashCan("a","b",0,"c"));
         list_component.add(new TrashCan("a","b",0,"c"));
         list_component.add(new TrashCan("a","b",0,"c"));
@@ -81,10 +81,8 @@ public class MainActivity extends AppCompatActivity
         myAdapter Adapter = new myAdapter(getApplicationContext(), R.layout.item, list_component);
         ListView list = (ListView) findViewById(R.id.trash_list);
 
+
         list.setAdapter(Adapter);
-
-
-
 
 
         new Thread(new Runnable() {
@@ -239,6 +237,7 @@ public class MainActivity extends AppCompatActivity
             this.components_list = components_list;
             inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
             // 멤버변수 초기화
+
         }
 
         @Override
