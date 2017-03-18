@@ -1,5 +1,6 @@
 package inhain.trashmonitoring;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -7,13 +8,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -58,6 +65,23 @@ public class MainActivity extends AppCompatActivity
 
 
 
+        ArrayList<TrashCan> list_component = new ArrayList<>();
+
+
+
+        list_component.add(new TrashCan("a","b",0,"c"));
+        list_component.add(new TrashCan("a","b",0,"c"));
+        list_component.add(new TrashCan("a","b",0,"c"));
+        list_component.add(new TrashCan("a","b",0,"c"));
+        list_component.add(new TrashCan("a","b",0,"c"));
+        list_component.add(new TrashCan("a","b",0,"c"));
+        list_component.add(new TrashCan("a","b",0,"c"));
+
+
+        myAdapter Adapter = new myAdapter(getApplicationContext(), R.layout.item, list_component);
+        ListView list = (ListView) findViewById(R.id.trash_list);
+
+        list.setAdapter(Adapter);
 
 
 
@@ -199,4 +223,49 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+
+
+
+
+
+    public class myAdapter extends BaseAdapter {
+        Context con;
+        LayoutInflater inflater;
+        ArrayList<TrashCan> components_list;
+        int layout;
+        myAdapter(Context context, int layout, ArrayList<TrashCan> components_list) {
+            con = context;
+            this.layout = layout;
+            this.components_list = components_list;
+            inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+            // 멤버변수 초기화
+        }
+
+        @Override
+        public int getCount() {
+            // TODO Auto-generated method stub
+            return components_list.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            // TODO Auto-generated method stub
+            return components_list.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            // TODO Auto-generated method stub
+            return position;
+        }
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // TODO Auto-generated method stub
+//            if (null == convertView) {
+                convertView = inflater.inflate(layout, parent, false);
+//                //cells 를 뷰화시켜서 아이템목록으로 삽입
+//            }
+            return convertView;
+        }
+    }
 }
